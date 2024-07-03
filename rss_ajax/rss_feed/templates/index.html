@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>RSS Feed Example</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min."></script>
+        </head>
+        <body>
+            <h1>RSS Feed Example</h1>
+            <div id="rss_feed"></div>
+
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: '/fetch_rss/',
+                    type: 'GET',
+                    success: function (data) {
+                        var html = '';
+                        data.forEach(function (item){
+                            html += '<h3><a href="' + item.link + '">' + item.title + '</a></h3>';
+                            html += '<p>' + item.summary + '</p>';
+                        });
+                        $('#rss_feed').html(html);
+            
+                    },
+                    error: function () {
+                        alert('Error fetching RSS feed.');
+                    }
+                });
+
+            });
+        </script>
+    </body>
+</html>
